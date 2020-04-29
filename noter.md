@@ -1,0 +1,4 @@
+# Noter
+* Sliders
+* Knapper
+* Reset
