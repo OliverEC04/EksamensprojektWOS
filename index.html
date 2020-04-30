@@ -8,6 +8,11 @@
                 margin: 0;
             }
 
+            #mapContainer
+            {
+                height: 100%;
+            }
+
             #map
             {
                 width: 1px;
@@ -23,13 +28,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
     </head>
     <body>
-        <div>
-            <script src="main.js"></script>
-            <script src="drawer.js"></script>
-            <script src="menu.js"></script>
-            <script src="boubles.js"></script>
-
+        <div id="mapContainer">
             <img id="map" src="https://github.com/OliverEC04/EksamensprojektWOS/blob/master/img/map.png?raw=true">
-        </div>        
+        </div>  
+        
+        <script src="main.js"></script>
+        <script src="drawer.js"></script>
+        <script src="menu.js"></script>
+        <script src="boubles.js"></script>
     </body>
 </html>

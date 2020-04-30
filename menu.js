@@ -10,7 +10,10 @@ class Menu
     {
         strokeWeight(5)
         line(windowWidth/6, 0, windowWidth/6, windowHeight) // Data
+        line(windowWidth*4/6, 0, windowWidth*4/6, windowHeight) // Funktioner
         line(0,windowHeight/10, windowWidth, windowHeight/10) // Top bar
+
+     
         
     }
 }
