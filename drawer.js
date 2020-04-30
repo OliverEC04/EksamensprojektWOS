@@ -1,27 +1,21 @@
-function drawMap(width, position)
+function drawMap(mapWidth, mapPos)
 {
-    var mapWidth = width;
     var map = document.getElementById("map");
-    if (position.x == "autoCenter")
+    var diff = parseInt(mapWidth) - height;
+
+    if (diff > 0)
     {
-        position.x = String(windowWidth * .5 - parseInt(width) * .5) + "px";
+        mapWidth = String(parseInt(mapWidth) - diff) + "px";
     }
 
-    var diff = map.clientHeight - height;
-    var newMapWidth;
-    if (diff < 0)
+    if (mapPos.x == "autoCenter")
     {
-        newMapWidth = String(parseInt(mapWidth) - diff) + "px";
-        console.log(diff);
-    }
-    else
-    {
-        newMapWidth = mapWidth;
+        mapPos.x = String(windowWidth * .5 - parseInt(mapWidth) * .5) + "px";
     }
 
-    map.style.width = String(newMapWidth);
-    map.style.marginLeft = String(position.x);
-    map.style.marginTop = String(position.y);
+    map.style.width = String(mapWidth);
+    map.style.marginLeft = String(mapPos.x);
+    map.style.marginTop = String(mapPos.y);
 }
 
 var sCounter = 0; // skal fjernes!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
