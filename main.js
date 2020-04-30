@@ -2,9 +2,9 @@
 
 function setup()
 {
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(windowWidth - 100, windowHeight - 100);
 
-    drawMap(String(windowWidth * .6) + "px", {x: "20px", y: "40px"});
+    drawMap(String(windowWidth * .5) + "px", {x: "20px", y: "40px"});
 }
 
 function draw()
