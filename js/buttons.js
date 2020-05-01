@@ -1,11 +1,11 @@
 class Buttons
 {
-    constructor(name, y)
+    constructor(name, y, x)
     {
         this.name = name;
         //this.onClick = onClick;
-        this.buttonx = windowSize.x*1/180 
-        this.buttony = y
+        this.buttonx = x
+        this.buttony = y + 30
 
         
 
@@ -14,18 +14,26 @@ class Buttons
 
     draw()
     {
-
-        text("button", this.buttonx, this.buttony);
+        textSize(20)
+        text(this.name, this.buttonx, this.buttony);
     }
 }
 
-function createButtons()
+function createButtons(name)
 {
     var buttons = [];
+    var buttonLabels = ["Antal smittede","Antal doede", "Antal smittede efter land", "Mentalt helbred", "Okonomi", "Sundhedsvaesenet", "Forskning", "Regeringstiltag", "Sidste"];
 
-    for (var i = 0; i < 10; i++)
+    for (var i = 0; i < 9; i++)
     {
-        buttons[i] = new Buttons("Test", mapPos.y + 50 * i);
+        if (i <= 4){
+            buttons[i] = new Buttons(buttonLabels[i], mapPos.y + 50 * i, windowSize.x*1/170);
+        } 
+
+        if (i >= 5){
+        buttons[i] = new Buttons(buttonLabels[i], mapPos.y + 50 * (i-5), mapWidth+ mapPos.x + 10);
+        }
+
         buttons[i].draw();
     }
 }

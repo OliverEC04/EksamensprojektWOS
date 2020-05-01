@@ -33,7 +33,7 @@ function draw()
     frameRate(30);
     createCanvas(windowSize.x, windowSize.y);
     clear();
-    createButtons()
+    createButtons("hej")
     lines();
     drawMap(String(mapWidth) + "px" , {x: String(mapPos.x) + "px", y: String(mapPos.y) + "px"});
 
