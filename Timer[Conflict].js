@@ -11,8 +11,8 @@ class Timer
 
     draw() 
     {
-        this.scounter++
-        this.sekund = (this.sekund + this.scounter)/30
+        scounter++
+        this.sekund = (this.sekund + scounter)/30
       
       if (this.sekund>=60)
       {
@@ -21,6 +21,6 @@ class Timer
         this.minut = minut+1
       }
 
-        text(String(this.minut) + ":" + String(round(this.sekund)), windowWidth/12, windowHeight/20)
+        text(String(this.minut) + ":" + String(round(sekund)), 100,200)
     }
 }
