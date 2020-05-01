@@ -4,7 +4,7 @@ class Timer
     {
         this.sekund = 0;
         this.minut = 0;
-        this.scounter = 0
+        this.scounter = 0;
   
     }
 
