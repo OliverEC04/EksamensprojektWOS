@@ -18,9 +18,14 @@ class Timer
       {
         this.scounter = 0
         this.sekund = 0
-        this.minut = minut+1
+        this.minut ++
       }
 
-        text(String(this.minut) + ":" + String(round(this.sekund)), windowWidth/12, windowHeight/20)
+      stroke(0,0,0)
+      fill(255,255,255)
+      textSize(35)
+      strokeWeight(2)
+      textFont("Helvitica")  
+      text(String(this.minut) + " : " + String(round(this.sekund)), windowSize.x/18, windowSize.y/20)
     }
 }

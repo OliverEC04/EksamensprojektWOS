@@ -1,16 +1,11 @@
 function drawMap(mapWidth, mapPos)
 {
     var map = document.getElementById("map");
-    var diff = parseInt(mapWidth) - height;
+    var diff = parseInt(mapWidth) - windowSize.y;
 
     if (diff > 0)
     {
         mapWidth = String(parseInt(mapWidth) - diff) + "px";
-    }
-
-    if (mapPos.x == "autoCenter")
-    {
-        mapPos.x = String(windowWidth * .5 - parseInt(mapWidth) * .5) + "px";
     }
 
     map.style.width = String(mapWidth);
@@ -36,6 +31,6 @@ function timer()
     
     textFont('Helvetica');
     textSize(22);
-    text(String(minut) + ":" + String(sekund), windowWidth/20, windowHeight/10-5)
+    text(String(minut) + ":" + String(sekund), windowSize.x/20, windowSize.y/10-5)
 
 }

@@ -5,18 +5,16 @@
         <style>
             body
             {
-                margin: 0;
-            }
-
-            #mapContainer
-            {
-                height: 100%;
+                margin: 10px;
+                background-color: black;
+                overflow: hidden;
             }
 
             #map
             {
                 width: 1px;
                 position: absolute;
+                z-index: -1;
             }
         </style>
 
@@ -27,15 +25,14 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
     </head>
-    <body>
-        <div id="mapContainer">
-            <img id="map" src="https://github.com/OliverEC04/EksamensprojektWOS/blob/master/img/map.png?raw=true">
-        </div>  
+    <body id="body">
+        <img id="map" src="https://github.com/OliverEC04/EksamensprojektWOS/blob/master/img/map.png?raw=true">
         
-        <script src="main.js"></script>
-        <script src="drawer.js"></script>
-        <script src="menu.js"></script>
-        <script src="timer.js"></script>
-        <script src="boubles.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/data.js"></script>
+        <script src="js/drawer.js"></script>
+        <script src="js/buttons.js"></script>
+        <script src="js/timer.js"></script>
+        <script src="js/boubles.js"></script>
     </body>
 </html>
