@@ -197,14 +197,14 @@
         dead: 452
     },
     {
-        name: "Serbia",
+        name: "Serbien",
         mapPosition: {x: mapPos.x + mapWidth * .52, y: mapPos.y + mapWidth * .76},
         population: 5600000,
         infected: 5000,
         dead: 452
     },
     {
-        name: "Albania",
+        name: "Albanien",
         mapPosition: {x: mapPos.x + mapWidth * .505, y: mapPos.y + mapWidth * .817},
         population: 5600000,
         infected: 5000,
@@ -267,8 +267,22 @@
         dead: 452
     },
     {
-        name: "",
-        mapPosition: {x: mapPos.x + mapWidth * .58, y: mapPos.y + mapWidth * .52},
+        name: "Lithauen",
+        mapPosition: {x: mapPos.x + mapWidth * .51, y: mapPos.y + mapWidth * .505},
+        population: 5600000,
+        infected: 5000,
+        dead: 452
+    },
+    {
+        name: "Letland",
+        mapPosition: {x: mapPos.x + mapWidth * .51, y: mapPos.y + mapWidth * .475},
+        population: 5600000,
+        infected: 5000,
+        dead: 452
+    },
+    {
+        name: "Estland",
+        mapPosition: {x: mapPos.x + mapWidth * .51, y: mapPos.y + mapWidth * .425},
         population: 5600000,
         infected: 5000,
         dead: 452

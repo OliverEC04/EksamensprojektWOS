@@ -66,7 +66,7 @@ function createButtons()
         } 
 
         if (i > 2 && i <= 4){
-            buttons[i] = new Buttons(buttonLabels[i], mapPos.y + 200 + (50 * i), windowSize.x*1/170 + 10);
+            buttons[i] = new Buttons(buttonLabels[i], mapPos.y + 250 + (50 * i), windowSize.x*1/170 + 10);
         } 
 
         if (i >= 5){
@@ -79,7 +79,6 @@ function createButtons()
 
 function rangListe() 
 {
-    
     var rangliste = [];
     var urangeretListe = [];
     var navneRangeret = [];
@@ -95,15 +94,18 @@ function rangListe()
     {
         for (var k = 0; k < rangeret.length; k++)
         {
-            if (countries[k].infected === rangeret[j])
+            if (countries[k].infected == rangeret[j])
             {
                 navneRangeret[k] = countries[k].name
-                
+                console.log(navneRangeret[k])
             }
-            rangliste[j] = new Buttons({name: navneRangeret[k] + String(rangeret[j])}, mapPos.y + 150 + 50 * (j - countries.length + 4), windowSize.x*1/170 + 10, color(255,0,0))
+        }
+        
+        for (var p = 0; p > 5; p++) // det er det her for loop som fucker det helt op.
+        {
+        rangliste[j] = new Buttons({name: String(navneRangeret[p]) + ": " + String(rangeret[j])}, mapPos.y + 150 + 50 * (j - countries.length + 4), windowSize.x*1/170 + 10, color(255,0,0))
         }
 
-        
         rangliste[j].draw()
     }
     
