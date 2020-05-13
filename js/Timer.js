@@ -25,7 +25,6 @@ class Timer
       fill(255,255,255)
       textSize(35)
       strokeWeight(2)
-      textFont("Helvitica")  
       text(String(this.minut) + " : " + String(round(this.sekund)), windowSize.x/18, windowSize.y/20)
     }
 }

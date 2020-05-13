@@ -1,4 +1,4 @@
-class Boubles
+﻿class Boubles
 {
     constructor(country)
     {
@@ -38,9 +38,9 @@ class Boubles
         textSize(this.fontSize);
         text(this.country.name, this.country.mapPosition.x + this.infectedRadius * 2 + this.fontSize * .5, this.country.mapPosition.y - this.panelSize.y * .5 + this.fontSize);
         strokeWeight(0);
-        text("Population: " + this.country.population, this.country.mapPosition.x + this.infectedRadius * 2 + this.fontSize * .5, this.country.mapPosition.y - this.panelSize.y * .3 + this.fontSize);
-        text("Infected: " + this.country.infected, this.country.mapPosition.x + this.infectedRadius * 2 + this.fontSize * .5, this.country.mapPosition.y - this.panelSize.y * .1 + this.fontSize);
-        text("Dead: " + this.country.dead, this.country.mapPosition.x + this.infectedRadius * 2 + this.fontSize * .5, this.country.mapPosition.y - this.panelSize.y * (-.1) + this.fontSize);
+        text("Indbyggere: " + this.country.population, this.country.mapPosition.x + this.infectedRadius * 2 + this.fontSize * .5, this.country.mapPosition.y - this.panelSize.y * .3 + this.fontSize);
+        text("Smittede: " + this.country.infected, this.country.mapPosition.x + this.infectedRadius * 2 + this.fontSize * .5, this.country.mapPosition.y - this.panelSize.y * .1 + this.fontSize);
+        text("Døde: " + this.country.dead, this.country.mapPosition.x + this.infectedRadius * 2 + this.fontSize * .5, this.country.mapPosition.y - this.panelSize.y * (-.1) + this.fontSize);
     }
 }
 

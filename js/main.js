@@ -33,10 +33,11 @@ function draw()
     frameRate(30);
     createCanvas(windowSize.x, windowSize.y);
     clear();
-    createButtons("hej")
+    createBoubles();
+    createButtons()
+    rangListe()
     lines();
     drawMap(String(mapWidth) + "px" , {x: String(mapPos.x) + "px", y: String(mapPos.y) + "px"});
 
     timer.draw()
-    createBoubles();
 }

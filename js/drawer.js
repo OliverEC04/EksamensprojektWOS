@@ -29,7 +29,7 @@ function timer()
         sekund = 0
     }
     
-    textFont('Helvetica');
+    textFont('Arial');
     textSize(22);
     text(String(minut) + ":" + String(sekund), windowSize.x/20, windowSize.y/10-5)
 

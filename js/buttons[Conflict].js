@@ -4,47 +4,41 @@
     {
         this.button = button;
         this.buttonx = x
-        this.buttony = y
-        this.size = {x: windowSize.x - windowSize.x*1/200 - 10, y: 40};
+        this.buttony = y + 30
         this.colour = (colour == undefined) ? color(255, 255, 255) : colour;
         this.subSize = {x: 200, y: (this.button.subButtons == undefined) ? 40 : this.button.subButtons.length * 40};
-        this.active;
 
         textSize(20);
     }
 
-    // Kører for hver knap 30 gange i sekundet
     draw()
     {
         strokeWeight(0);
         fill(this.colour);
-        text(this.button.name, this.buttonx, this.buttony + 30);
-        
-        if (this.button.subButtons != undefined && this.buttonx < mouseX && mouseX < this.buttonx + this.size.x && this.buttony < mouseY && mouseY < this.buttony + this.size.y)
-        {
-            this.active = true;
-        }
+        text(this.button.name, this.buttonx, this.buttony);
 
-        if (this.active)
+        if (this.button.subButtons != undefined && this.buttonx < mouseX && mouseX < windowSize.x - windowSize.x*1/200 - 10 && this.buttony - 30 < mouseY && mouseY < this.buttony + 10)
         {
             this.hover();
+
+
         }
+
     }
 
-    // Kører når man holder musen over knappen
     hover()
     {
         fill(0);
         stroke(60, 60, 60);
         strokeWeight(5);
-        rect(this.buttonx - this.subSize.x - 20, this.buttony, this.subSize.x, this.subSize.y);
+        rect(this.buttonx - this.subSize.x - 20, this.buttony - 30, this.subSize.x, this.subSize.y);
         
         fill(255);
         strokeWeight(0);
 
         for (var i = 0; i < this.button.subButtons.length; i++)
         {
-            text(this.button.subButtons[i].name, this.buttonx - this.subSize.x, this.buttony + 30 + (i * 40));
+            text(this.button.subButtons[i].name, this.buttonx - this.subSize.x - 20, this.buttony * (i + 1));
         }
     }
 
@@ -82,7 +76,6 @@ function rangListe()
     
     var rangliste = [];
     var urangeretListe = [];
-    var navneRangeret = [];
 
     for (var i = 0; i < countries.length; i++)
     {
@@ -93,17 +86,15 @@ function rangListe()
 
     for (var j = countries.length; j > countries.length-5; j--)
     {
+        rangliste[j] = new Buttons({name: rangeret[j]}, mapPos.y + 150 + 50 * (j - countries.length + 4), windowSize.x*1/170 + 10, color(255,0,0))
+
         for (var k = 0; k < rangeret.length; k++)
         {
             if (countries[k].infected === rangeret[j])
             {
-                navneRangeret[k] = countries[k].name
-                
+                return countries[k].name
             }
-            rangliste[j] = new Buttons({name: navneRangeret[k] + String(rangeret[j])}, mapPos.y + 150 + 50 * (j - countries.length + 4), windowSize.x*1/170 + 10, color(255,0,0))
         }
-
-        
         rangliste[j].draw()
     }
     
