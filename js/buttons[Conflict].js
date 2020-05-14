@@ -77,14 +77,7 @@ function createButtons()
     }
 }
 
-
-function rangListe()
-{
-    countries.sort(function(a,b){return console.log(a.infected - b.infected)})
-    display()
-}
-
-/*function rangListe() 
+function rangListe() 
 {
     var rangliste = [];
     var urangeretListe = [];
@@ -99,12 +92,11 @@ function rangListe()
 
     for (var j = countries.length - 1; j > countries.length-6; j--)
     {
-        //console.log(String(j) + " : " + String(countries[j]));
-        for (var k = 0; k < countries.length; k++)
+        console.log(String(j) + " : " + String(countries[j]));
+        for (var k = 0; k < rangeret.length; k++)
         {
             if (countries[k].infected == rangeret[j])
             {
-                //console.log(rangeret[j])
                 navneRangeret[k] = countries[k].name
                 //console.log(navneRangeret[k])
             }
@@ -113,13 +105,13 @@ function rangListe()
         for (var p = 0; p < 5; p++) // det er det her for loop som fucker det helt op.
         {
             //console.log(navneRangeret[p]);
-            rangliste[j] = new Buttons({name: String(navneRangeret[p]) + ": " + String(rangeret[j])}, mapPos.y + 200 + 50 * (j - countries.length + 4), windowSize.x*1/170 + 10, color(255,0,0))
+            rangliste[j] = new Buttons({name: String(navneRangeret[p]) + ": " + String(rangeret[j])}, mapPos.y + 150 + 50 * (j - countries.length + 4), windowSize.x*1/170 + 10, color(255,0,0))
         }
 
         rangliste[j].draw()
     }
     
-}*/
+}
 
 
 function lines()

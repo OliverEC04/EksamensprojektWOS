@@ -144,147 +144,147 @@
         name: "Østrig",
         mapPosition: {x: mapPos.x + mapWidth * .4, y: mapPos.y + mapWidth * .7},
         population: 5600000,
-        infected: 4588,
+        infected: 4581,
         dead: 452
     },
     {
         name: "Polen",
         mapPosition: {x: mapPos.x + mapWidth * .45, y: mapPos.y + mapWidth * .57},
         population: 5600000,
-        infected: 999,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Tjekkiet",
         mapPosition: {x: mapPos.x + mapWidth * .4, y: mapPos.y + mapWidth * .64},
         population: 5600000,
-        infected: 3364,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Slovakiet",
         mapPosition: {x: mapPos.x + mapWidth * .455, y: mapPos.y + mapWidth * .655},
         population: 5600000,
-        infected: 6969,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Ungarn",
         mapPosition: {x: mapPos.x + mapWidth * .48, y: mapPos.y + mapWidth * .69},
         population: 5600000,
-        infected: 9696,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Slovenien",
         mapPosition: {x: mapPos.x + mapWidth * .41, y: mapPos.y + mapWidth * .73},
         population: 5600000,
-        infected: 4580,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Kroatien",
         mapPosition: {x: mapPos.x + mapWidth * .43, y: mapPos.y + mapWidth * .76},
         population: 5600000,
-        infected: 8888,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Bosnia and Herzegovina",
         mapPosition: {x: mapPos.x + mapWidth * .47, y: mapPos.y + mapWidth * .76},
         population: 5600000,
-        infected: 3333,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Serbien",
         mapPosition: {x: mapPos.x + mapWidth * .52, y: mapPos.y + mapWidth * .76},
         population: 5600000,
-        infected: 45716,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Albanien",
         mapPosition: {x: mapPos.x + mapWidth * .505, y: mapPos.y + mapWidth * .817},
         population: 5600000,
-        infected: 42,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Grækenland",
         mapPosition: {x: mapPos.x + mapWidth * .54, y: mapPos.y + mapWidth * .85},
         population: 5600000,
-        infected: 158,
+        infected: 5000,
         dead: 452
     },
     {
         name: "North Macedonia",
         mapPosition: {x: mapPos.x + mapWidth * .533, y: mapPos.y + mapWidth * .812},
         population: 5600000,
-        infected: 4625,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Bulgarien",
         mapPosition: {x: mapPos.x + mapWidth * .58, y: mapPos.y + mapWidth * .78},
         population: 5600000,
-        infected: 3001,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Romanien",
         mapPosition: {x: mapPos.x + mapWidth * .56, y: mapPos.y + mapWidth * .7},
         population: 5600000,
-        infected: 7946,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Ukraine",
         mapPosition: {x: mapPos.x + mapWidth * .58, y: mapPos.y + mapWidth * .62},
         population: 5600000,
-        infected: 4584,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Tyrkiet",
         mapPosition: {x: mapPos.x + mapWidth * .74, y: mapPos.y + mapWidth * .85},
         population: 5600000,
-        infected: 4562,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Moldova",
         mapPosition: {x: mapPos.x + mapWidth * .62, y: mapPos.y + mapWidth * .685},
         population: 5600000,
-        infected: 1235,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Hviderusland",
         mapPosition: {x: mapPos.x + mapWidth * .58, y: mapPos.y + mapWidth * .52},
         population: 5600000,
-        infected: 1324,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Lithauen",
         mapPosition: {x: mapPos.x + mapWidth * .51, y: mapPos.y + mapWidth * .505},
         population: 5600000,
-        infected: 1234,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Letland",
         mapPosition: {x: mapPos.x + mapWidth * .51, y: mapPos.y + mapWidth * .475},
         population: 5600000,
-        infected: 321,
+        infected: 5000,
         dead: 452
     },
     {
         name: "Estland",
         mapPosition: {x: mapPos.x + mapWidth * .51, y: mapPos.y + mapWidth * .425},
         population: 5600000,
-        infected: 4321,
+        infected: 5000,
         dead: 452
     },
 ];
