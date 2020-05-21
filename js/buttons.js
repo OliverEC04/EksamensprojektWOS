@@ -3,24 +3,27 @@
     constructor(button, y, x, colour)
     {
         this.button = button;
-        this.buttonx = x
-        this.buttony = y
+        this.buttonx = x;
+        this.buttony = y;
         this.size = {x: windowSize.x - windowSize.x*1/200 - 10, y: 40};
         this.colour = (colour == undefined) ? color(255, 255, 255) : colour;
-        this.subSize = {x: 200, y: (this.button.subButtons == undefined) ? 40 : this.button.subButtons.length * 40};
+        this.subSize = {x: 200, y: 40/*this.button.subButtons == undefined ? 40 : this.button.subButtons.length * 40*/};
 
         textSize(20);
+
+        this.txt = createButton(this.button.name);
+        this.txt.position(this.buttonx, this.buttony + 20);
+        this.txt.style('background-color', color(0, 0, 0, 0));
+        //console.log(this.button);
     }
 
     // Kører for hver knap 30 gange i sekundet
     draw()
     {
+        this.txt.mousePressed(this.click);
         //document.getElementsByTagName(button)
         
-        this.txt = createButton(this.button.name);
-        this.txt.position(this.buttonx, this.buttony + 20);
-        this.txt.style('background-color', color(0, 0, 0, 0))
-        
+        /*
         if (mouseIsPressed && this.button.subButtons != undefined && this.buttonx < mouseX && mouseX < this.buttonx + this.size.x && this.buttony < mouseY && mouseY < this.buttony + this.size.y)
         {
             if (this.button.show == undefined || this.button.show == "hide")
@@ -37,22 +40,30 @@
         {
             this.click();
         }
+        */
     }
 
     // Kører når man holder musen over knappen
     click()
     {
-        fill(0);
-        stroke(60, 60, 60);
-        strokeWeight(5);
-        rect(this.buttonx - this.subSize.x - 20, this.buttony, this.subSize.x, this.subSize.y);
-        
-        fill(255);
-        strokeWeight(0);
-
-        for (var i = 0; i < this.button.subButtons.length; i++)
+        if (this.button != undefined)
         {
-            text(this.button.subButtons[i].name, this.buttonx - this.subSize.x, this.buttony + 30 + (i * 40));
+            console.log("button clicked");
+            console.log(this);
+
+            fill(0);
+            stroke(60, 60, 60);
+            strokeWeight(5);
+            console.log(this.subSize);
+            rect(this.buttonx - /*this.subSize.x*/ 200 - 20, this.buttony, /*this.subSize.x*/ 200, /*this.subSize.y*/ 40);
+            
+            fill(255);
+            strokeWeight(0);
+
+            for (var i = 0; i < this.button.subButtons.length; i++)
+            {
+                text(this.button.subButtons[i].name, this.buttonx - this.subSize.x, this.buttony + 30 + (i * 40));
+            }
         }
     }
 
@@ -87,10 +98,14 @@ function createButtons()
 
 function displayLandeRang() // viser landene rangerede efter smittet
 {
-    countriesNames = []
-
     for (var i = 1; i < 6; i++)
     {
+        // Fjerner den forrige rangliste
+        if (countriesNames[i] != undefined)
+        {
+            countriesNames[i].txt.remove();
+        }
+
         countriesNames[i] = new Buttons({name: String(countries[countries.length - i].name + ": " + String(countries[countries.length-i].infected))}, mapPos.y + 100 + 50 * i, windowSize.x*1/170 + 10, color(255,0,0))
 
         countriesNames[i].draw()

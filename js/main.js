@@ -8,6 +8,7 @@ var windowSize =
 };
 var btn;
 var timer;
+var countriesNames = []
 
 //Map variabler
 var mapWidth = windowSize.x * (4/6) - 100;
@@ -23,8 +24,8 @@ var mapPos =
 
 function setup()
 {
-   
     timer = new Timer();
+    createButtons()
 }
 
 
@@ -34,7 +35,6 @@ function draw()
     createCanvas(windowSize.x, windowSize.y);
     clear();
     createBoubles();
-    createButtons()
     rangListe();
     mentalHealth();
     lines();
