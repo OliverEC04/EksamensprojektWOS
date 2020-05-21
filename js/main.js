@@ -35,7 +35,8 @@ function draw()
     clear();
     createBoubles();
     createButtons()
-    rangListe()
+    rangListe();
+    mentalHealth();
     lines();
     drawMap(String(mapWidth) + "px" , {x: String(mapPos.x) + "px", y: String(mapPos.y) + "px"});
 

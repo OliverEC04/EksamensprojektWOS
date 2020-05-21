@@ -8,7 +8,6 @@
         this.size = {x: windowSize.x - windowSize.x*1/200 - 10, y: 40};
         this.colour = (colour == undefined) ? color(255, 255, 255) : colour;
         this.subSize = {x: 200, y: (this.button.subButtons == undefined) ? 40 : this.button.subButtons.length * 40};
-        this.active;
 
         textSize(20);
     }
@@ -16,23 +15,32 @@
     // Kører for hver knap 30 gange i sekundet
     draw()
     {
-        strokeWeight(0);
-        fill(this.colour);
-        text(this.button.name, this.buttonx, this.buttony + 30);
+        //document.getElementsByTagName(button)
         
-        if (this.button.subButtons != undefined && this.buttonx < mouseX && mouseX < this.buttonx + this.size.x && this.buttony < mouseY && mouseY < this.buttony + this.size.y)
+        this.txt = createButton(this.button.name);
+        this.txt.position(this.buttonx, this.buttony + 20);
+        this.txt.style('background-color', color(0, 0, 0, 0))
+        
+        if (mouseIsPressed && this.button.subButtons != undefined && this.buttonx < mouseX && mouseX < this.buttonx + this.size.x && this.buttony < mouseY && mouseY < this.buttony + this.size.y)
         {
-            this.active = true;
+            if (this.button.show == undefined || this.button.show == "hide")
+            {
+                this.button.show = "show";
+            }
+            else if (this.button.show == "show")
+            {
+                this.button.show = "hide";
+            }
         }
 
-        if (this.active)
+        if (this.button.show == "show" && this.button.subButtons != undefined)
         {
-            this.hover();
+            this.click();
         }
     }
 
     // Kører når man holder musen over knappen
-    hover()
+    click()
     {
         fill(0);
         stroke(60, 60, 60);
@@ -48,7 +56,7 @@
         }
     }
 
-    click()
+    subClick()
     {
         
     }
@@ -77,49 +85,40 @@ function createButtons()
     }
 }
 
-
-function rangListe()
+function displayLandeRang() // viser landene rangerede efter smittet
 {
-    countries.sort(function(a,b){return console.log(a.infected - b.infected)})
-    display()
+    countriesNames = []
+
+    for (var i = 1; i < 6; i++)
+    {
+        countriesNames[i] = new Buttons({name: String(countries[countries.length - i].name + ": " + String(countries[countries.length-i].infected))}, mapPos.y + 100 + 50 * i, windowSize.x*1/170 + 10, color(255,0,0))
+
+        countriesNames[i].draw()
+    }
 }
 
-/*function rangListe() 
+function rangListe() // Sortere listen i filen data.js fra færrest til flest smittet
 {
-    var rangliste = [];
-    var urangeretListe = [];
-    var navneRangeret = [];
+    countries.sort(function(a, b){return (a.infected - b.infected)})
+    displayLandeRang()
+}
 
-    for (var i = 0; i < countries.length; i++)
+
+function mentalHealth(mentalHealthIndex)
+{
+    rect(windowSize.x*1/170 + 10, mapPos.y + 450, 100, 5)
+
+    stroke(150,150, 150);
+    noFill();
+    rect(windowSize.x*1/170 + 10 , mapPos.y + 450, windowSize.x*1/7, 10);
+
+    if (mentalHealthIndex < 80)
     {
-        urangeretListe[i] = countries[i].infected
+        fill()
     }
- 
-    var rangeret = sort(urangeretListe, countries.length)
+    rect(windowSize.x*1/170 + 10 , mapPos.y + 450, mentalHealthIndex, 10);
 
-    for (var j = countries.length - 1; j > countries.length-6; j--)
-    {
-        //console.log(String(j) + " : " + String(countries[j]));
-        for (var k = 0; k < countries.length; k++)
-        {
-            if (countries[k].infected == rangeret[j])
-            {
-                //console.log(rangeret[j])
-                navneRangeret[k] = countries[k].name
-                //console.log(navneRangeret[k])
-            }
-        }
-        
-        for (var p = 0; p < 5; p++) // det er det her for loop som fucker det helt op.
-        {
-            //console.log(navneRangeret[p]);
-            rangliste[j] = new Buttons({name: String(navneRangeret[p]) + ": " + String(rangeret[j])}, mapPos.y + 200 + 50 * (j - countries.length + 4), windowSize.x*1/170 + 10, color(255,0,0))
-        }
-
-        rangliste[j].draw()
-    }
-    
-}*/
+}
 
 
 function lines()
@@ -141,4 +140,9 @@ function lines()
     //line(windowWidth/6, windowHeight/10, windowWidth/6, windowHeight) // Data
     //line(windowWidth*5/6, windowHeight/10, windowWidth*5/6, windowHeight) // Funktioner
     //line(0,windowHeight/10, windowWidth, windowHeight/10) // Top bar
+}
+function økonomi()
+{
+    //økonomi for landet
+ 
 }
