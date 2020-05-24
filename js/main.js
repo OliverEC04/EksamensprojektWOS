@@ -8,7 +8,8 @@ var windowSize =
 };
 var btn;
 var timer;
-var countriesNames = []
+var buttons = [];
+var countriesNames = [];
 
 //Map variabler
 var mapWidth = windowSize.x * (4/6) - 100;
@@ -39,6 +40,7 @@ function draw()
     mentalHealth();
     lines();
     drawMap(String(mapWidth) + "px" , {x: String(mapPos.x) + "px", y: String(mapPos.y) + "px"});
+    updateButtons();
 
     timer.draw()
 }
