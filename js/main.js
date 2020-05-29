@@ -40,6 +40,7 @@ function draw()
     mentalHealth();
     lines();
     drawMap(String(mapWidth) + "px" , {x: String(mapPos.x) + "px", y: String(mapPos.y) + "px"});
+    updateSmitte();
     updateButtons();
 
     timer.draw()

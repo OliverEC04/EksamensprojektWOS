@@ -8,6 +8,8 @@
         this.size = {x: (windowSize.x - mapWidth - 40) / 2, y: 40};
         this.colour = (colour == undefined) ? color(255, 255, 255) : colour;
         this.subSize = {x: 200, y: this.button.subButtons == undefined ? 40 : this.button.subButtons.length * 40};
+        this.topicSize = {x: mapWidth * 2/3, y: mapWidth * 2/3};
+        this.topicPos = {x: windowSize.x / 2 - this.topicSize.x / 2, y: mapPos.y};
         this.menuActive = false;
         this.topicActive = [];
         this.isClicked = false;
@@ -22,6 +24,7 @@
         this.txt = createButton(this.button.name);
         this.txt.position(this.buttonx, this.buttony + 20);
         this.txt.style('background-color', color(0, 0, 0, 0));
+        this.txt.style('color', this.colour);
     }
 
     // Kører for hver knap 30 gange i sekundet
@@ -86,25 +89,65 @@
         }
     }
 
+    // Vindue der kommer frem når man klikker på en knap
     topic(topicNumber)
     {
+        fill(0);
+        stroke(60, 60, 60);
+        strokeWeight(5);
+        rect(this.topicPos.x, this.topicPos.y, this.topicSize.x, this.topicSize.y);
+
+        fill(255, 0, 0);
+        stroke(60, 60, 60);
+        strokeWeight(5);
+        rect(this.topicPos.x + this.topicSize.x - 30, this.topicPos.y + 10, 20, 20);
+
+        if (this.isClicked == false && mouseIsPressed && 
+            this.topicPos.x + this.topicSize.x - 30 < mouseX && 
+            mouseX < this.topicPos.x + this.topicSize.x - 10 && 
+            this.topicPos.y + 10 < mouseY && 
+            mouseY < this.topicPos.y + 30)
+        {
+            this.isClicked = true;
+            this.topicActive[topicNumber] = false;
+        }
+
+        strokeWeight(0);
         fill(255);
-        rect(100, 100, 400, 400);
-        fill(0, 0, 0);
-        text(this.button.subButtons[topicNumber].name, 120, 120);
+        textSize(30);
+        text(this.button.subButtons[topicNumber].name, this.topicPos.x + this.topicSize.x / 2 - textWidth(this.button.subButtons[topicNumber].name) / 2, this.topicPos.y + 30);
+
+        textSize(15);
+
+        switch (topicNumber)
+        {
+            case 0:
+                text(this.button.subButtons[topicNumber].description, this.topicPos.x + 10, this.topicPos.y + 50, this.topicSize.x - 20);
+
+                slider.remove();
+
+                var slider = createSlider(0, budget);
+                slider.position(this.topicPos.x, this.topicPos.y);
+                break;
+
+            case 1:
+                console.log("1");
+                break;
+        }
     }
 }
 
 
 function createButtons()
 {
-    for (var i = 0; i < 9; i++)
+    for (var i = 0; i < 10; i++)
     {
         if (i <= 2){
             buttons[i] = new Buttons(buttonLabels[i], mapPos.y + 50 * i, windowSize.x*1/170 + 10);
         } 
 
-        if (i > 2 && i <= 4){
+        if (i > 2 && i <= 4) // mentalt helbred og økonomi
+        {
             buttons[i] = new Buttons(buttonLabels[i], mapPos.y + 250 + (50 * i), windowSize.x*1/170 + 10);
         } 
 
@@ -117,7 +160,7 @@ function createButtons()
 
 function updateButtons()
 {
-    for (var i = 0; i < 9; i++)
+    for (var i = 0; i < 10; i++)
     {
         buttons[i].draw();
     }
@@ -134,7 +177,8 @@ function displayLandeRang() // viser landene rangerede efter smittet
             countriesNames[i].txt.remove();
         }
 
-        countriesNames[i] = new Buttons({name: String(countries[countries.length - i].name + ": " + String(countries[countries.length-i].infected))}, mapPos.y + 100 + 50 * i, windowSize.x*1/170 + 10, color(255,0,0))
+        
+        countriesNames[i] = new Buttons({name: String(countries[countries.length - i].name + ": " + String(floor(countries[countries.length-i].infected)))}, mapPos.y + 100 + 50 * i, windowSize.x*1/170 + 10, color(255,0,0))
 
         countriesNames[i].draw()
     }
