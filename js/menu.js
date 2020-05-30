@@ -2,72 +2,72 @@
 {
     constructor(button, y, x, colour)
     {
+        // Angiver variabler for hvert objekt af klassen
         this.button = button;
         this.buttonx = x;
         this.buttony = y;
         this.size = {x: (windowSize.x - mapWidth - 40) / 2, y: 40};
         this.colour = (colour == undefined) ? color(255, 255, 255) : colour;
         this.subSize = {x: 200, y: this.button.subButtons == undefined ? 40 : this.button.subButtons.length * 40};
-        this.topicSize = {x: mapWidth * 2/3, y: mapWidth * 2/3};
-        this.topicPos = {x: windowSize.x / 2 - this.topicSize.x / 2, y: mapPos.y};
         this.menuActive = false;
-        this.topicActive = [];
-        this.isClicked = false;
 
-        for (var i = 0; i < (this.button.subButtons == undefined ? 0 : this.button.subButtons.length); i++)
-        {
-            this.topicActive[i] = false;
-        }
-
+        // Tegner tekst for knappen
         textSize(20);
-
         this.txt = createButton(this.button.name);
         this.txt.position(this.buttonx, this.buttony + 20);
         this.txt.style('background-color', color(0, 0, 0, 0));
         this.txt.style('color', this.colour);
+
+        // For hver undermenu i knappen
+        for (var i = 0; i < (this.button.subButtons == undefined ? 0 : this.button.subButtons.length); i++)
+        {
+            buttonLabels[getIndex(buttonLabels, this.button.name)].subButtons[i].window = new Window({x: mapWidth * 2/3, y: mapWidth * 2/3}, this.button.subButtons[i], {closeBtn: true, btnName: this.button.name}); // Laver et vindue til undermenuen
+            buttonLabels[getIndex(buttonLabels, this.button.name)].subButtons[i].active = false; // Angiver om vinduet skal vises
+        }
     }
 
     // Kører for hver knap 30 gange i sekundet
     draw()
     {
-        this.menuActive = this.click(this.size, {x: this.buttonx, y: this.buttony}, this.menuActive);
+        // Viser menuen hvis man klikker på knappen
+        this.menuActive = click(this.size, {x: this.buttonx, y: this.buttony}, this.menuActive);        
+
         if (this.menuActive && this.button.subButtons != undefined)
         {
             this.menu();
 
             for (var i = 0; i < this.button.subButtons.length; i++)
             {
-                this.topicActive[i] = this.click({x: this.subSize.x, y: this.size.y}, {x: this.buttonx - this.subSize.x - 20, y: this.buttony + this.size.y * i}, this.topicActive[i]);
-                if (this.topicActive[i])
+                // Åbner vinduet hvis man klikker på knappen
+                buttonLabels[getIndex(buttonLabels, this.button.name)].subButtons[i].active = click({x: this.subSize.x, y: this.size.y}, {x: this.buttonx - this.subSize.x - 20, y: this.buttony + this.size.y * i}, buttonLabels[getIndex(buttonLabels, this.button.name)].subButtons[i].active);
+                if (buttonLabels[getIndex(buttonLabels, this.button.name)].subButtons[i].active)
                 {
-                    this.topic(i);
+                    buttonLabels[getIndex(buttonLabels, this.button.name)].subButtons[i].window.draw();
+                    buttonLabels[getIndex(buttonLabels, this.button.name)].subButtons[i].window.drawSlider();
                 }
             }
         }
-    }
-
-    click(size, position, active)
-    {
-        if (this.isClicked == false && mouseIsPressed && position.x < mouseX && mouseX < position.x + size.x && position.y < mouseY && mouseY < position.y + size.y)
+        // Lukker vinduet hvis hvis menuen ikke er åben
+        else if (this.button.subButtons != undefined)
         {
-            this.isClicked = true;
-
-            if (active == false)
+            for (var i = 0; i < this.button.subButtons.length; i++)
             {
-                active = true;
-            }
-            else if (active)
-            {
-                active = false;
+                buttonLabels[getIndex(buttonLabels, this.button.name)].subButtons[i].active = false;
             }
         }
-        else if (mouseIsPressed == false)
-        {
-            this.isClicked = false;
-        }
 
-        return active;
-    }
+        // Fjerner slideren fra vinduet hvis det ikke vises
+        if (this.button.subButtons != undefined)
+        {
+            for (var i = 0; i < this.button.subButtons.length; i++)
+            {
+                if (buttonLabels[getIndex(buttonLabels, this.button.name)].subButtons[i].active == false)
+                {
+                    buttonLabels[getIndex(buttonLabels, this.button.name)].subButtons[i].window.removeSlider();
+                }
+            }
+        }
+    }    
 
     // Kører når man klikker på knappen
     menu()
@@ -88,51 +88,91 @@
             }
         }
     }
+}
 
-    // Vindue der kommer frem når man klikker på en knap
-    topic(topicNumber)
+
+class Window
+{
+    constructor(size, content, close)
     {
+        this.size = size;
+        this.position = {x: windowSize.x / 2 - this.size.x / 2, y: mapPos.y};
+        this.content = content;
+        this.closeBtn = close.closeBtn;
+        this.btnName = close.btnName;
+        this.slider;
+    }
+
+    // Tegner vinduet med titlen og beskrivelse
+    draw()
+    {
+        // Tegner kassen til vinduet
         fill(0);
         stroke(60, 60, 60);
         strokeWeight(5);
-        rect(this.topicPos.x, this.topicPos.y, this.topicSize.x, this.topicSize.y);
+        rect(this.position.x, this.position.y, this.size.x, this.size.y);
 
+        // Tegner luk knappen
         fill(255, 0, 0);
         stroke(60, 60, 60);
         strokeWeight(5);
-        rect(this.topicPos.x + this.topicSize.x - 30, this.topicPos.y + 10, 20, 20);
+        rect(this.position.x + this.size.x - 30, this.position.y + 10, 20, 20);
 
-        if (this.isClicked == false && mouseIsPressed && 
-            this.topicPos.x + this.topicSize.x - 30 < mouseX && 
-            mouseX < this.topicPos.x + this.topicSize.x - 10 && 
-            this.topicPos.y + 10 < mouseY && 
-            mouseY < this.topicPos.y + 30)
+        // Aktiverer hvis man klikker på luk knappen
+        if (isClicked == false && mouseIsPressed && 
+            this.position.x + this.size.x - 30 < mouseX && 
+            mouseX < this.position.x + this.size.x - 10 && 
+            this.position.y + 10 < mouseY && 
+            mouseY < this.position.y + 30)
         {
-            this.isClicked = true;
-            this.topicActive[topicNumber] = false;
+            isClicked = true;
+            buttonLabels[getIndex(buttonLabels, this.btnName)].subButtons[getIndex(buttonLabels[getIndex(buttonLabels, this.btnName)].subButtons, this.content.name)].active = false; // Finder knappen og ændrer dens aktiv værdi til false
         }
 
+        // Tegner titlen på vinduet
         strokeWeight(0);
         fill(255);
         textSize(30);
-        text(this.button.subButtons[topicNumber].name, this.topicPos.x + this.topicSize.x / 2 - textWidth(this.button.subButtons[topicNumber].name) / 2, this.topicPos.y + 30);
+        text(this.content.name, this.position.x + this.size.x / 2 - textWidth(this.content.name) / 2, this.position.y + 30);
 
+        //Tegner beskrivelsen af vinduet
         textSize(15);
+        text(this.content.description, this.position.x + 10, this.position.y + 50, this.size.x - 20);
+    }
 
-        switch (topicNumber)
+    // Tegner en slider på vinduet
+    drawSlider()
+    {
+        // Tegner en slider hvis den ikke allerede eksisterer
+        if (this.slider == undefined)
         {
-            case 0:
-                text(this.button.subButtons[topicNumber].description, this.topicPos.x + 10, this.topicPos.y + 50, this.topicSize.x - 20);
+            this.slider = createSlider(0, budget, 0, budget / 100);
+            this.sliderWidth = this.size.x * 2/3;
+            this.slider.style('width', String(this.sliderWidth) + "px");
+            this.slider.position(this.position.x + this.size.x / 2 - this.sliderWidth / 2, this.position.y + this.size.y * .75);
+        }
 
-                slider.remove();
+        // Tegner værdier til slideren
+        text("0", 
+        this.position.x + this.size.x / 2 - this.sliderWidth / 2 - textWidth("0") / 2, 
+        this.position.y + this.size.y * .75 + 20); // Minimumsværdien
 
-                var slider = createSlider(0, budget);
-                slider.position(this.topicPos.x, this.topicPos.y);
-                break;
+        text(String(budget), 
+        this.position.x + this.size.x / 2 + this.sliderWidth / 2 - textWidth(String(budget)) / 2, 
+        this.position.y + this.size.y * .75 + 20); // Maksimumsværdien
 
-            case 1:
-                console.log("1");
-                break;
+        text(String(this.slider.value()), 
+        this.position.x + this.size.x / 2 - this.sliderWidth / 2 + this.sliderWidth * (this.slider.value() / budget) - textWidth(String(this.slider.value())) / 2, 
+        this.position.y + this.size.y * .75 - 20); // Nuværende værdi        
+    }
+
+    removeSlider()
+    {
+        // Fjerner slideren når vinduet lukkes
+        if (this.slider != undefined && buttonLabels[getIndex(buttonLabels, this.btnName)].subButtons[getIndex(buttonLabels[getIndex(buttonLabels, this.btnName)].subButtons, this.content.name)].active == false)
+        {
+            this.slider.remove();
+            this.slider = undefined;
         }
     }
 }
