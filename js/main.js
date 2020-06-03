@@ -11,6 +11,8 @@ var timer; // Indeholder et Timer objekt
 var buttons = []; // Indeholder knapperne fra menuen
 var countriesNames = []; // ?
 var isClicked = false; // Sørger for at musen kun aktiverer 1 gang når man klikker
+var tick = 0;
+var fps = .1;
 
 //Map variabler
 var mapWidth = windowSize.x * (4/6) - 100;
@@ -23,64 +25,26 @@ var mapPos = //Positionen af kortet
 };
 
 
+// Funktioner der kører 1 gang
 function setup()
 {
     timer = new Timer();
     createButtons();
 }
 
-
+// Kører 30 gange i sekundet
 function draw()
 {
-    frameRate(30);
+    frameRate(fps);
     createCanvas(windowSize.x, windowSize.y);
     clear();
     createBoubles();
     rangListe();
-    mentalHealth();
+    mentalHealth(countries[getIndex(countries, "Danmark")].mentalHealthIndex);
     lines();
-    drawMap(String(mapWidth) + "px" , {x: String(mapPos.x) + "px", y: String(mapPos.y) + "px"});
-    updateSmitte();
+    drawElements(String(mapWidth) + "px" , {x: String(mapPos.x) + "px", y: String(mapPos.y) + "px"});
+    updateIndex();
     updateButtons();
-
-    timer.draw()
-}
-
-
-// SKAL FLYTTES
-// Finder index-nummeret på et objekt i et array ud fra objektets navn
-function getIndex(array, value)
-{
-    for (var i = 0; i < array.length; i++)
-    {
-        if (array[i].name == value)
-        {
-            return i;
-        }
-    }
-}
-
-// Skal også flyttes
-// Returner true hvis man klikker på det angivne område
-function click(size, position, active)
-{
-    if (isClicked == false && mouseIsPressed && position.x < mouseX && mouseX < position.x + size.x && position.y < mouseY && mouseY < position.y + size.y)
-    {
-        isClicked = true;
-
-        if (active == false)
-        {
-            active = true;
-        }
-        else if (active)
-        {
-            active = false;
-        }
-    }
-    else if (mouseIsPressed == false)
-    {
-        isClicked = false;
-    }
-
-    return active;
+    timer.draw();
+    welcome();
 }

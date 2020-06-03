@@ -28,3 +28,4 @@ class Timer
       text(String(this.minut) + " : " + String(round(this.sekund)), windowSize.x/18, windowSize.y/20)
     }
 }
+

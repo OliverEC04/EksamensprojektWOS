@@ -7,8 +7,8 @@
 
     draw()
     {
-        this.infectedRadius = this.country.infected / this.country.population * 4000;
-        this.deadRadius = this.country.dead / this.country.population * 4000;
+        this.infectedRadius = Math.log(this.country.infected * .5) * 2;
+        this.deadRadius = Math.log(this.country.dead * .5) * 2;
 
         fill(255, 0, 0);
         strokeWeight(2);
@@ -43,6 +43,7 @@
         text("Døde: " + floor(this.country.dead), this.country.mapPosition.x + this.infectedRadius * 2 + this.fontSize * .5, this.country.mapPosition.y - this.panelSize.y * (-.1) + this.fontSize);
     }
 }
+
 
 function createBoubles()
 {

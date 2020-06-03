@@ -1,4 +1,5 @@
-﻿var budget = 100000000000;
+﻿var budget = 10000000000;
+budget++;
 var countries = 
 [
     {
@@ -8,12 +9,18 @@ var countries =
         infected: Math.floor(Math.random() * 100),
         dead: 1,
         area: 42933,
-        BNP: 49190
+        BNP: 49190,
+        udstyrIndex: 0, //buttonLabels[6].subButtons[0].window == undefined ? 0 : buttonLabels[6].subButtons[0].window.slider.value(),
+        sengepladserIndex: 0,
+        vaccineIndex: 0,
+        udgangsforbudIndex: 0,
+        initiativesIndex: 0,
+        mentalHealthIndex: 1,
     },
     {
         name: "Sverige",
         mapPosition: {x: mapPos.x + mapWidth * .4, y: mapPos.y + mapWidth * .3},
-        population: 10230000,
+        population: 100230000,
         infected: Math.floor(Math.random() * 100),
         dead: 1,
         area: 450295,
@@ -43,7 +50,7 @@ var countries =
         population: 364134,
         infected: Math.floor(Math.random() * 100),
         dead: 1,
-        area: 103000,
+        area: 1003000,
         BNP: 38840
     },
     {
@@ -139,7 +146,7 @@ var countries =
     {
         name: "Schweiz",
         mapPosition: {x: mapPos.x + mapWidth * .3, y: mapPos.y + mapWidth * .71},
-        population: 85700000,
+        population: 8570000,
         infected: Math.floor(Math.random() * 100),
         dead: 1,
         area: 41285,
@@ -224,7 +231,7 @@ var countries =
         infected: Math.floor(Math.random() * 100),
         dead: 1,
         area: 51197,
-        BNP: 1
+        BNP: 6066
     },
     {
         name: "Serbien",
@@ -268,7 +275,7 @@ var countries =
         population: 7000000,
         infected: Math.floor(Math.random() * 100),
         dead: 1,
-        area: 110994,
+        area: 1100994,
         BNP: 6800
     },
     {
@@ -350,10 +357,16 @@ var buttonLabels =
 [
     {
         name: "Antal smittede"
-    }, 
+    },
+    {
+        name: String(countries[0]["infected"])
+    },
     {
         name: "Antal døde"
-    }, 
+    },
+    {
+        name: String(countries[0]["dead"])
+    },
     {
         name: "Antal smittede efter land"
     }, 
@@ -361,13 +374,13 @@ var buttonLabels =
         name: "Mentalt helbred"
     }, 
     {
-        name: "Økonomi"
+        name: "Budget"
     },
     {
-        name: budget
+        name: String(Math.round(budget)) + " kr"
     }, 
     {
-        name: "Sundhedsvæsenet", 
+        name: "👩‍⚕️Sundhedsvæsenet", 
         subButtons: 
         [
             {
@@ -375,35 +388,29 @@ var buttonLabels =
                 description: "Vælg hvor mange penge du ønsker at investere i udstyr"
             },
             {
-                name: "Sengepladser"
+                name: "Sengepladser",
+                description: "vælg hvor mange penge du ønsker at investere i sengepladser på hospitalerne  "
             }
         ]
     }, 
     {
-        name: "Forskning",
+        name: "🧬Forskning",
         subButtons:
         [
             {
-                name: "Vaccine"
+                name: "Vaccine",
+                description: "vælg hvor mange penge du ønsker at investere i at finde en vaccine  "
             }
         ]
     }, 
     {
-        name: "Regeringstiltag",
+        name: "⚖ Regeringstiltag",
         subButtons:
         [
             {
-                name: "Grænser"
+                name: "Udgangsforbud",
+                description: "vælg hvor mange penge du ønsker at bruge på nedlukning af landet  "
             }
         ]
-    }, 
-    {
-        name:"Sidste",
-        subButtons:
-        [
-            {
-                name: "Lort"
-            }
-        ]
-    }
+    },
 ];

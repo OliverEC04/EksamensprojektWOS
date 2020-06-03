@@ -91,6 +91,7 @@
 }
 
 
+// Tegner en vindue ud fra størrelse, indhold, og om der skal være en luk-knap
 class Window
 {
     constructor(size, content, close)
@@ -98,9 +99,15 @@ class Window
         this.size = size;
         this.position = {x: windowSize.x / 2 - this.size.x / 2, y: mapPos.y};
         this.content = content;
-        this.closeBtn = close.closeBtn;
-        this.btnName = close.btnName;
+        this.close = close;
         this.slider;
+        this.okBtnsize = {x: 120, y: 30};
+
+        if (this.close != undefined)
+        {
+            this.closeBtn = close.closeBtn;
+            this.btnName = close.btnName;
+        }
     }
 
     // Tegner vinduet med titlen og beskrivelse
@@ -112,21 +119,24 @@ class Window
         strokeWeight(5);
         rect(this.position.x, this.position.y, this.size.x, this.size.y);
 
-        // Tegner luk knappen
-        fill(255, 0, 0);
-        stroke(60, 60, 60);
-        strokeWeight(5);
-        rect(this.position.x + this.size.x - 30, this.position.y + 10, 20, 20);
-
-        // Aktiverer hvis man klikker på luk knappen
-        if (isClicked == false && mouseIsPressed && 
-            this.position.x + this.size.x - 30 < mouseX && 
-            mouseX < this.position.x + this.size.x - 10 && 
-            this.position.y + 10 < mouseY && 
-            mouseY < this.position.y + 30)
+        if (this.close != undefined)
         {
-            isClicked = true;
-            buttonLabels[getIndex(buttonLabels, this.btnName)].subButtons[getIndex(buttonLabels[getIndex(buttonLabels, this.btnName)].subButtons, this.content.name)].active = false; // Finder knappen og ændrer dens aktiv værdi til false
+            // Tegner luk knappen
+            fill(255, 0, 0);
+            stroke(60, 60, 60);
+            strokeWeight(5);
+            rect(this.position.x + this.size.x - 30, this.position.y + 10, 20, 20);
+
+            // Aktiverer hvis man klikker på luk knappen
+            if (isClicked == false && mouseIsPressed && 
+                this.position.x + this.size.x - 30 < mouseX && 
+                mouseX < this.position.x + this.size.x - 10 && 
+                this.position.y + 10 < mouseY && 
+                mouseY < this.position.y + 30)
+            {
+                isClicked = true;
+                buttonLabels[getIndex(buttonLabels, this.btnName)].subButtons[getIndex(buttonLabels[getIndex(buttonLabels, this.btnName)].subButtons, this.content.name)].active = false; // Finder knappen og ændrer dens aktiv værdi til false
+            }
         }
 
         // Tegner titlen på vinduet
@@ -146,7 +156,7 @@ class Window
         // Tegner en slider hvis den ikke allerede eksisterer
         if (this.slider == undefined)
         {
-            this.slider = createSlider(0, budget, 0, budget / 100);
+            this.slider = createSlider(0, budget, countries[getIndex(countries, "Danmark")][String(this.content.name.toLowerCase()) + "Index"] == undefined ? 0 : countries[getIndex(countries, "Danmark")][String(this.content.name.toLowerCase()) + "Index"], budget / 100);
             this.sliderWidth = this.size.x * 2/3;
             this.slider.style('width', String(this.sliderWidth) + "px");
             this.slider.position(this.position.x + this.size.x / 2 - this.sliderWidth / 2, this.position.y + this.size.y * .75);
@@ -163,7 +173,36 @@ class Window
 
         text(String(this.slider.value()), 
         this.position.x + this.size.x / 2 - this.sliderWidth / 2 + this.sliderWidth * (this.slider.value() / budget) - textWidth(String(this.slider.value())) / 2, 
-        this.position.y + this.size.y * .75 - 20); // Nuværende værdi        
+        this.position.y + this.size.y * .75 - 20); // Nuværende værdi
+
+        // Tegner en confirm knap
+        fill(0, 255, 0);
+        stroke(60, 60, 60);
+        strokeWeight(5);
+        rect(this.position.x + this.size.x / 2 - this.okBtnsize.x / 2, 
+            this.position.y + this.size.y * .85, 
+            this.okBtnsize.x, 
+            this.okBtnsize.y); // Selve knappen
+
+        fill(0);
+        strokeWeight(0);
+        text("Confirm", 
+        this.position.x + this.size.x / 2 - textWidth("Confirm") / 2, 
+        this.position.y + this.size.y * .85 + 20); // Teksten
+
+        // Aktiverer hvis man klikker på knappen
+        if (isClicked == false && mouseIsPressed && budget >= this.slider.value() &&
+            this.position.x + this.size.x / 2 - this.okBtnsize.x / 2 < mouseX && 
+            mouseX < this.position.x + this.size.x / 2 - this.okBtnsize.x / 2 + this.okBtnsize.x && 
+            this.position.y + this.size.y * .85 < mouseY && 
+            mouseY < this.position.y + this.size.y * .85 + this.okBtnsize.y + 30)
+        {
+            isClicked = true;
+            // Ændrer Danmarks index ud fra sliderens værdi
+            countries[getIndex(countries, "Danmark")][String(this.content.name.toLowerCase()) + "Index"] += this.slider.value();
+            budget = budget - this.slider.value();
+            buttonLabels[getIndex(buttonLabels, this.btnName)].subButtons[getIndex(buttonLabels[getIndex(buttonLabels, this.btnName)].subButtons, this.content.name)].active = false;
+        }
     }
 
     removeSlider()
@@ -180,19 +219,20 @@ class Window
 
 function createButtons()
 {
-    for (var i = 0; i < 10; i++)
+    for (var i = 0; i < 11; i++)
     {
-        if (i <= 2){
+        if (i <= 4){
             buttons[i] = new Buttons(buttonLabels[i], mapPos.y + 50 * i, windowSize.x*1/170 + 10);
-        } 
+        }
 
-        if (i > 2 && i <= 4) // mentalt helbred og økonomi
+        if (i > 4 && i <= 7) // mentalt helbred og budget
         {
             buttons[i] = new Buttons(buttonLabels[i], mapPos.y + 250 + (50 * i), windowSize.x*1/170 + 10);
         } 
 
-        if (i >= 5){
-        buttons[i] = new Buttons(buttonLabels[i], mapPos.y + 50 * (i-5), mapWidth+ mapPos.x + 20);
+        if (i >= 8)
+        {
+            buttons[i] = new Buttons(buttonLabels[i], mapPos.y + 50 * (i-8), mapWidth+ mapPos.x + 20);
         }
     }
 }
@@ -200,8 +240,30 @@ function createButtons()
 
 function updateButtons()
 {
-    for (var i = 0; i < 10; i++)
+    for (var i = 0; i < 11; i++)
     {
+        switch (i)
+        {
+            case 1:
+                buttons[i].txt.remove();
+
+                buttons[i] = new Buttons({name: String(floor(countries[getIndex(countries, "Danmark")]["infected"]))}, mapPos.y + 50 * i, windowSize.x*1/170 + 10, color(255,0,0));
+                break;
+
+            case 3:
+                buttons[i].txt.remove();
+
+                buttons[i] = new Buttons({name: String(floor(countries[getIndex(countries, "Danmark")]["dead"]))}, mapPos.y + 50 * i, windowSize.x*1/170 + 10, color(255,0,0));
+                break;
+
+            case 7:
+                buttons[i].txt.remove();
+
+                buttons[i] = new Buttons({name: String(budget) + " kr"}, mapPos.y + 250 + 50 * i, windowSize.x*1/170 + 10);
+                //console.log(budget);
+                break;
+        }
+
         buttons[i].draw();
     }
 }
@@ -218,7 +280,7 @@ function displayLandeRang() // viser landene rangerede efter smittet
         }
 
         
-        countriesNames[i] = new Buttons({name: String(countries[countries.length - i].name + ": " + String(floor(countries[countries.length-i].infected)))}, mapPos.y + 100 + 50 * i, windowSize.x*1/170 + 10, color(255,0,0))
+        countriesNames[i] = new Buttons({name: String(countries[ i-1].name + ": " + String(floor(countries[i-1].infected)))}, mapPos.y + 200 + 50 * i, windowSize.x*1/170 + 10, color(255,0,0))
 
         countriesNames[i].draw()
     }
@@ -227,24 +289,19 @@ function displayLandeRang() // viser landene rangerede efter smittet
 
 function rangListe() // Sortere listen i filen data.js fra færrest til flest smittet
 {
-    countries.sort(function(a, b){return (a.infected - b.infected)})
+    countries.sort(function(a, b){return (b.infected -a.infected)})
     displayLandeRang()
 }
 
 
 function mentalHealth(mentalHealthIndex)
 {
-    rect(windowSize.x*1/170 + 10, mapPos.y + 450, 100, 5)
-
     stroke(150,150, 150);
     noFill();
-    rect(windowSize.x*1/170 + 10 , mapPos.y + 450, windowSize.x*1/7, 10);
-
-    if (mentalHealthIndex < 80)
-    {
-        fill()
-    }
-    rect(windowSize.x*1/170 + 10 , mapPos.y + 450, mentalHealthIndex, 10);
+    rect(windowSize.x*1/125, mapPos.y+540, windowSize.x*1/7, 10);
+    fill(255, 255, 255);
+    rect(windowSize.x*1/125, mapPos.y+540, windowSize.x*1/7 * mentalHealthIndex, 10);
+    noFill();
 
 }
 
@@ -268,11 +325,4 @@ function lines()
     //line(windowWidth/6, windowHeight/10, windowWidth/6, windowHeight) // Data
     //line(windowWidth*5/6, windowHeight/10, windowWidth*5/6, windowHeight) // Funktioner
     //line(0,windowHeight/10, windowWidth, windowHeight/10) // Top bar
-}
-
-
-function økonomi()
-{
-    //økonomi for landet
- 
 }
